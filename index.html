@@ -463,11 +463,22 @@
     margin-top: 0.25rem;
   }
 
-  /* === TARIFFS === */
-  .tariffs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+  /* === TARIFFS — CAROUSEL === */
+  .tariffs-carousel {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.75rem;
+    scrollbar-width: none;
+  }
+  .tariffs-carousel::-webkit-scrollbar { display: none; }
+
+  .tariffs-carousel .tariff-card {
+    flex: 0 0 calc(50% - 0.625rem);
+    min-width: 320px;
+    scroll-snap-align: start;
   }
 
   .tariff-card {
@@ -480,6 +491,39 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+  }
+
+  .tariff-card--compact .tariff-price {
+    font-size: 1.5rem;
+  }
+  .tariff-card--compact .tariff-price + .tariff-price {
+    margin-top: 0.25rem;
+  }
+
+  .carousel-nav {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  .carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    color: var(--color-fg);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+  }
+  .carousel-btn:hover {
+    background: var(--color-surface);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
   .tariff-card::before {
     content: '';
@@ -724,10 +768,22 @@
   }
 
   /* === RESPONSIVE === */
+  @media (max-width: 1024px) {
+    .tariffs-carousel .tariff-card {
+      flex: 0 0 calc(50% - 0.625rem);
+      min-width: 300px;
+    }
+  }
+
   @media (max-width: 768px) {
     .nav-desktop { display: none; }
     .nav-toggle { display: flex; }
-    .nav-toggle--mobile { display: none; }
+
+    .hero { min-height: auto; padding: 5rem 0 3rem; }
+    .hero h1 { font-size: clamp(1.5rem, 7vw, 2.2rem); }
+    .hero p { font-size: 0.95rem; }
+    .btn-group { flex-direction: column; }
+    .btn-group .btn { width: 100%; justify-content: center; }
 
     .about-grid {
       grid-template-columns: 1fr;
@@ -737,16 +793,36 @@
     .about-stats { justify-content: center; }
     .section-title::after { margin-left: auto; margin-right: auto; }
     .section-subtitle { margin-left: auto; margin-right: auto; }
+    .about-text p { font-size: 0.95rem; }
+
+    .tariffs-carousel .tariff-card {
+      flex: 0 0 85%;
+      min-width: 280px;
+    }
+    .tariff-card { padding: 1.5rem; }
 
     .summer-banner {
-      padding: 2rem 1.5rem;
+      padding: 1.5rem;
       text-align: center;
       justify-content: center;
     }
     .summer-banner .btn { width: 100%; }
 
-    .hero { min-height: auto; padding-top: 5rem; }
-    .hero h1 { font-size: clamp(1.75rem, 8vw, 2.5rem); }
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section { padding: 3rem 0; }
+    .section-title { font-size: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .tariffs-carousel .tariff-card {
+      flex: 0 0 82%;
+      min-width: 260px;
+    }
+    .tariff-features li { font-size: 0.85rem; }
+    .hero h1 { font-size: clamp(1.35rem, 6vw, 1.75rem); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -896,21 +972,20 @@
     <h2 class="section-title reveal" style="transition-delay:50ms">🧬 Тарифы на ЕГЭ</h2>
     <p class="section-subtitle reveal" style="transition-delay:100ms">3 уровня нагрузки — выбирай свой темп</p>
 
-    <div class="tariffs-grid">
+    <div class="tariffs-carousel" id="egeCarousel">
       <!-- Базовый -->
-      <div class="tariff-card reveal" style="transition-delay:100ms">
+      <div class="tariff-card reveal tariff-card--compact" style="transition-delay:100ms">
         <span class="tariff-badge">Набор открыт</span>
         <div class="tariff-card-header">
           <div class="tariff-name">🟢 Базовый</div>
           <div class="tariff-desc">Чтобы просто сдать</div>
         </div>
         <div class="tariff-price">8 000 ₽ <span class="tariff-price-sub">/ мес — 1 инд./нед</span></div>
-        <div class="tariff-price" style="font-size:1.5rem;margin-top:0.5rem">15 000 ₽ <span class="tariff-price-sub">/ мес — 2 инд./нед</span></div>
+        <div class="tariff-price">15 000 ₽ <span class="tariff-price-sub">/ мес — 2 инд./нед</span></div>
         <ul class="tariff-features">
           <li>Разбираем базу без стресса</li>
-          <li>Учимся забирать баллы на простых заданиях</li>
+          <li>Забираем баллы на простых заданиях</li>
           <li>Плотно идём по программе</li>
-          <li>Без пробников — только подготовка</li>
         </ul>
         <a href="https://calendar.app.google/QGaJEyfSh2c2ZPRt6" class="btn btn-primary" target="_blank">Выбрать тариф</a>
       </div>
@@ -924,10 +999,10 @@
         </div>
         <div class="tariff-price">20 800 ₽ <span class="tariff-price-sub">/ мес</span></div>
         <ul class="tariff-features">
-          <li><strong>3 занятия в неделю:</strong> 1 групповое (теория) + 2 индивид. (практика)</li>
+          <li><strong>3 занятия/нед:</strong> 1 групповое (теория) + 2 индивид. (практика)</li>
           <li>Раз в 2 месяца — полноценный пробник</li>
-          <li><strong>Поддержка 24/7</strong> в Telegram — отвечаю на вопросы</li>
-          <li>Разбираем твои личные косяки</li>
+          <li><strong>Поддержка 24/7</strong> в Telegram</li>
+          <li>Разбираем личные косяки</li>
         </ul>
         <a href="https://calendar.app.google/QGaJEyfSh2c2ZPRt6" class="btn btn-primary" target="_blank">Выбрать тариф</a>
       </div>
@@ -941,14 +1016,18 @@
         </div>
         <div class="tariff-price">25 200 ₽ <span class="tariff-price-sub">/ мес</span></div>
         <ul class="tariff-features">
-          <li><strong>3 индивидуальных занятия</strong> в неделю — только тет-а-тет</li>
+          <li><strong>3 индивид./нед</strong> — только тет-а-тет</li>
           <li>Полная персонализация программы</li>
-          <li>Каждый месяц — жёсткий пробник с разбором</li>
+          <li>Каждый месяц — жёсткий пробник</li>
           <li><strong>Поддержка 24/7</strong></li>
-          <li><strong>Опция PRO (+2 000 ₽/мес):</strong> тебя записывают в симуляционные центры, сдаёшь пробники в реальных условиях с бланками и таймингом</li>
+          <li><strong>Опция PRO (+2 000 ₽/мес):</strong> пробники в симуляционных центрах с бланками и таймингом</li>
         </ul>
         <a href="https://calendar.app/google/QGaJEyfSh2c2ZPRt6" class="btn btn-primary" target="_blank">Выбрать тариф</a>
       </div>
+    </div>
+    <div class="carousel-nav" id="egeCarouselNav">
+      <button class="carousel-btn" onclick="scrollCarousel('egeCarousel', -1)" aria-label="Назад">‹</button>
+      <button class="carousel-btn" onclick="scrollCarousel('egeCarousel', 1)" aria-label="Вперёд">›</button>
     </div>
   </div>
 </section>
@@ -960,16 +1039,16 @@
     <h2 class="section-title reveal" style="transition-delay:50ms">🧫 Тарифы на ОГЭ</h2>
     <p class="section-subtitle reveal" style="transition-delay:100ms">Для уверенной сдачи и базы на будущее</p>
 
-    <div class="tariffs-grid">
+    <div class="tariffs-carousel" id="ogeCarousel">
       <!-- Лайт -->
-      <div class="tariff-card reveal" style="transition-delay:100ms">
+      <div class="tariff-card reveal tariff-card--compact" style="transition-delay:100ms">
         <span class="tariff-badge">Набор открыт</span>
         <div class="tariff-card-header">
           <div class="tariff-name">🟢 Лайт</div>
           <div class="tariff-desc">1 занятие в неделю</div>
         </div>
         <div class="tariff-price">4 000 ₽ <span class="tariff-price-sub">/ мес — групповое</span></div>
-        <div class="tariff-price" style="font-size:1.5rem;margin-top:0.5rem">8 000 ₽ <span class="tariff-price-sub">/ мес — индивидуальное</span></div>
+        <div class="tariff-price">8 000 ₽ <span class="tariff-price-sub">/ мес — индивидуальное</span></div>
         <ul class="tariff-features">
           <li>Спокойно разбираем программу</li>
           <li>Уверенная сдача экзамена</li>
@@ -978,7 +1057,7 @@
         <a href="https://calendar.app.google/QGaJEyfSh2c2ZPRt6" class="btn btn-primary" target="_blank">Выбрать тариф</a>
       </div>
 
-      <!-- Хард -->
+      <!-- PRO -->
       <div class="tariff-card reveal" style="transition-delay:150ms">
         <span class="tariff-badge tariff-badge--summer">Набор открыт</span>
         <div class="tariff-card-header">
@@ -993,6 +1072,10 @@
         </ul>
         <a href="https://calendar.app.google/QGaJEyfSh2c2ZPRt6" class="btn btn-primary" target="_blank">Выбрать тариф</a>
       </div>
+    </div>
+    <div class="carousel-nav" id="ogeCarouselNav">
+      <button class="carousel-btn" onclick="scrollCarousel('ogeCarousel', -1)" aria-label="Назад">‹</button>
+      <button class="carousel-btn" onclick="scrollCarousel('ogeCarousel', 1)" aria-label="Вперёд">›</button>
     </div>
   </div>
 </section>
@@ -1120,6 +1203,16 @@
     });
   }
 
+  /* ======================== CAROUSEL ======================== */
+  window.scrollCarousel = function(id, dir) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var card = el.querySelector('.tariff-card');
+    if (!card) return;
+    var scrollAmount = card.offsetWidth + parseFloat(getComputedStyle(el).gap) || 0;
+    el.scrollBy({ left: scrollAmount * dir, behavior: 'smooth' });
+  };
+
   /* ======================== SCROLL REVEAL ======================== */
   (function initReveal() {
     var els = document.querySelectorAll('.reveal');
@@ -1158,7 +1251,8 @@
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
     var particles = [];
-    var PARTICLE_COUNT = 90;
+    var isMobile = window.innerWidth < 768;
+    var PARTICLE_COUNT = isMobile ? 30 : 90;
     var CONNECT_DIST = 155;
     var MOUSE_RADIUS = 160;
     var MOUSE_FORCE = 0.006;
@@ -1265,6 +1359,7 @@
     var FRAME_INTERVAL = 33;
 
     function loop(time) {
+      if (!running) return;
       if (time - lastFrame < FRAME_INTERVAL) {
         requestAnimationFrame(loop);
         return;
@@ -1335,7 +1430,12 @@
     initParticles();
 
     window.addEventListener('resize', function() {
+      var wasMobile = isMobile;
+      isMobile = window.innerWidth < 768;
       resize();
+      if (wasMobile !== isMobile) {
+        PARTICLE_COUNT = isMobile ? 30 : 90;
+      }
       initParticles();
     });
 
@@ -1349,12 +1449,10 @@
       mouse.y = -9999;
     });
 
+    var running = true;
     document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        /* pause unnecessary frames by stopping the loop */
-      } else {
-        requestAnimationFrame(loop);
-      }
+      running = !document.hidden;
+      if (running) requestAnimationFrame(loop);
     });
 
     requestAnimationFrame(loop);
