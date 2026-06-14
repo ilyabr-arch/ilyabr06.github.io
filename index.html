@@ -463,6 +463,103 @@
     margin-top: 0.25rem;
   }
 
+  /* === ABOUT VALUES & BENEFITS === */
+  .about-values-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .about-value-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    transition: transform 0.3s var(--ease-smooth), border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-value-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--color-accent) 30%, var(--color-border));
+  }
+  .about-value-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(400px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+    mix-blend-mode: var(--spotlight-blend);
+  }
+  .about-value-card:hover::before { opacity: 1; }
+  .about-value-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+  }
+  .about-value-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+  }
+  .about-value-card p {
+    font-size: 0.85rem;
+    color: var(--color-fg-dim);
+    line-height: 1.55;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .about-benefit-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    text-align: center;
+    transition: transform 0.3s var(--ease-smooth), border-color 0.3s;
+  }
+  .about-benefit-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--color-accent-2) 30%, var(--color-border));
+  }
+  .about-benefit-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .about-benefit-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+  .about-benefit-card p {
+    font-size: 0.8rem;
+    color: var(--color-fg-dim);
+    line-height: 1.5;
+  }
+
   /* === TARIFFS — CAROUSEL === */
   .tariffs-carousel {
     display: flex;
@@ -792,10 +889,16 @@
       text-align: center;
     }
     .about-avatar { margin: 0 auto; }
-    .about-stats { justify-content: center; }
     .section-title::after { margin-left: auto; margin-right: auto; }
     .section-subtitle { margin-left: auto; margin-right: auto; }
     .about-text p { font-size: 0.95rem; }
+
+    .about-values-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-benefits-grid {
+      grid-template-columns: 1fr;
+    }
 
     .tariffs-carousel .tariff-card {
       flex: 0 0 85%;
@@ -937,43 +1040,53 @@
         <p class="reveal" style="transition-delay:150ms">
           Я студент-медик, сам подготовился за полгода с нуля и поступил.
         </p>
-        <div class="reveal" style="transition-delay:175ms">
-          <p style="margin-top:0.5rem;font-size:1rem;color:var(--color-fg-dim);font-weight:600">🎯 Я помогаю с тем, что важно:</p>
-          <p style="margin-top:0.5rem;color:var(--color-fg-dim);font-size:0.95rem">
-            <strong style="color:var(--color-fg)">1. Понять логику, а не зубрить учебник.</strong><br>
-            Даю алгоритмы и лайфхаки для решения задач, даже если забыл теорию. Учимся думать как составители экзамена.
-          </p>
-          <p style="margin-top:0.5rem;color:var(--color-fg-dim);font-size:0.95rem">
-            <strong style="color:var(--color-fg)">2. Закрыть пробелы, даже если «уже поздно».</strong><br>
-            Если старт в 10–11 классе и кажется что всё упущено — нет. Фокусируемся на темах, которые принесут баллы на твоём уровне.
-          </p>
-          <p style="margin-top:0.5rem;color:var(--color-fg-dim);font-size:0.95rem">
-            <strong style="color:var(--color-fg)">3. Перестать бояться органики и второй части.</strong><br>
-            Сложные цепочки и задачи на растворы — на простые понятные шаги. То что кажется адом становится логикой.
-          </p>
-          <p style="margin-top:0.5rem;color:var(--color-fg-dim);font-size:0.95rem">
-            <strong style="color:var(--color-fg)">4. Видеть реальный прогресс.</strong><br>
-            Регулярные пробники, честный разбор ошибок, коррекция плана. Всегда знаешь на каком балле ты и что делать чтобы вырасти.
-          </p>
-          <p style="margin-top:1rem;color:var(--color-fg-dim);font-size:0.95rem;font-weight:600">💡 Что ты получаешь кроме уроков:</p>
-          <p style="margin-top:0.5rem;color:var(--color-fg-dim);font-size:0.95rem">
-            — <strong style="color:var(--color-fg)">Честность.</strong> На первой встрече скажу реальный уровень и сколько нужно времени. Без впаривания.<br>
-            — <strong style="color:var(--color-fg)">Поддержка 24/7.</strong> Застрял в 22:00? Напиши в Telegram. Ты платишь не за час, а за сопровождение до результата.<br>
-            — <strong style="color:var(--color-fg)">Все материалы под рукой.</strong> Теория, шпаргалки, разборы, записи на Яндекс Диске. Пропустил — пересмотришь.
-          </p>
+
+        <div class="reveal" style="transition-delay:200ms">
+          <p style="margin-top:1rem;font-size:1rem;font-weight:600;color:var(--color-fg)">🎯 Я помогаю с тем, что важно</p>
         </div>
-        <div class="about-stats reveal" style="transition-delay:350ms">
-          <div class="about-stat">
-            <div class="about-stat-value">Полгода</div>
-            <div class="about-stat-label">от нуля до поступления</div>
+
+        <div class="about-values-grid">
+          <div class="about-value-card reveal" style="transition-delay:200ms">
+            <div class="about-value-num">1</div>
+            <h4>Понять логику, а не зубрить</h4>
+            <p>Даю алгоритмы и лайфхаки для решения задач. Учимся думать как составители экзамена.</p>
           </div>
-          <div class="about-stat">
-            <div class="about-stat-value">3</div>
-            <div class="about-stat-label">Курс меда (лечфак)</div>
+          <div class="about-value-card reveal" style="transition-delay:250ms">
+            <div class="about-value-num">2</div>
+            <h4>Закрыть пробелы, даже если поздно</h4>
+            <p>Старт в 10–11 классе? Фокусируемся на темах, которые принесут баллы на твоём уровне.</p>
           </div>
-          <div class="about-stat">
-            <div class="about-stat-value">24/7</div>
-            <div class="about-stat-label">Поддержка в Telegram</div>
+          <div class="about-value-card reveal" style="transition-delay:300ms">
+            <div class="about-value-num">3</div>
+            <h4>Органика без страха</h4>
+            <p>Сложные цепочки и задачи — на простые шаги. То что кажется адом становится логикой.</p>
+          </div>
+          <div class="about-value-card reveal" style="transition-delay:350ms">
+            <div class="about-value-num">4</div>
+            <h4>Видеть реальный прогресс</h4>
+            <p>Пробники, честный разбор ошибок, коррекция плана. Всегда знаешь где ты и что делать.</p>
+          </div>
+        </div>
+
+        <div class="reveal" style="transition-delay:400ms">
+          <p style="margin-top:1.5rem;font-size:1rem;font-weight:600;color:var(--color-fg)">💡 Что ты получаешь кроме уроков</p>
+        </div>
+
+        <div class="about-benefits-grid">
+          <div class="about-benefit-card reveal" style="transition-delay:400ms">
+            <div class="about-benefit-icon">🎯</div>
+            <h4>Честность</h4>
+            <p>На первой встрече скажу реальный уровень и сроки. Без впаривания лишнего.</p>
+          </div>
+          <div class="about-benefit-card reveal" style="transition-delay:450ms">
+            <div class="about-benefit-icon">💬</div>
+            <h4>Поддержка 24/7</h4>
+            <p>Застрял в 22:00? Напиши в Telegram. Ты платишь за результат, не за час.</p>
+          </div>
+          <div class="about-benefit-card reveal" style="transition-delay:500ms">
+            <div class="about-benefit-icon">📁</div>
+            <h4>Материалы под рукой</h4>
+            <p>Теория, шпаргалки, записи на Яндекс Диске. Пропустил — пересмотришь.</p>
           </div>
         </div>
       </div>
@@ -1249,7 +1362,7 @@
 
   /* ======================== SPOTLIGHT ======================== */
   (function initSpotlight() {
-    var cards = document.querySelectorAll('.tariff-card');
+    var cards = document.querySelectorAll('.tariff-card, .about-value-card');
     cards.forEach(function(card) {
       card.addEventListener('mousemove', function(e) {
         var rect = card.getBoundingClientRect();
