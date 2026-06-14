@@ -174,51 +174,81 @@
     transition: opacity 0.75s var(--ease-out-expo), filter 0.75s var(--ease-out-expo), transform 0.75s var(--ease-out-expo);
   }
   .reveal.reveal-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
+  /* === GLASS PILL === */
+  .glass-pill {
+    background: color-mix(in srgb, var(--color-surface) 35%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-fg-dim);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .glass-pill:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .glass-pill--accent {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-color: var(--color-accent);
+  }
+  .glass-pill--accent:hover {
+    background: color-mix(in srgb, var(--color-accent) 80%, transparent);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
 
   /* === HEADER === */
   .site-header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    backdrop-filter: blur(20px) saturate(1.25);
-    -webkit-backdrop-filter: blur(20px) saturate(1.25);
-    background: color-mix(in srgb, var(--color-void-deep) 70%, transparent);
-    border-bottom: 1px solid var(--color-border);
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .site-header .container {
+    pointer-events: none;
+    padding: 0.75rem 1.25rem;
     display: flex; align-items: center;
-    justify-content: space-between; height: 3.75rem;
+    justify-content: space-between;
+    transition: background 0.3s;
   }
+  .site-header > * { pointer-events: auto; }
 
   .site-logo {
-    font-size: 1.1rem; font-weight: 700; text-decoration: none;
-    color: var(--color-fg); letter-spacing: -0.02em; white-space: nowrap;
+    font-size: 0.9rem; font-weight: 700; text-decoration: none;
+    color: var(--color-fg); letter-spacing: -0.02em;
   }
   .site-logo span { color: var(--color-accent); }
 
-  .nav-desktop { display: flex; align-items: center; gap: 1.5rem; }
-  .nav-desktop a {
-    font-size: 0.875rem; font-weight: 500;
-    color: var(--color-fg-dim); text-decoration: none; transition: color 0.2s;
+  .nav-glass {
+    display: flex; align-items: center; gap: 0.4rem;
   }
-  .nav-desktop a:hover { color: var(--color-accent); }
 
-  .header-actions { display: flex; align-items: center; gap: 0.75rem; }
+  .nav-glass .glass-pill {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.85rem;
+  }
+
+  .header-actions {
+    display: flex; align-items: center; gap: 0.4rem;
+  }
 
   .theme-toggle {
-    display: flex; align-items: center; justify-content: center;
-    width: 2.25rem; height: 2.25rem; border-radius: var(--radius-sm);
-    background: var(--color-surface-2); border: 1px solid var(--color-border);
-    cursor: pointer; font-size: 1rem; transition: all 0.2s; color: var(--color-fg);
+    width: 2.2rem; height: 2.2rem; padding: 0;
+    font-size: 0.95rem;
   }
-  .theme-toggle:hover { border-color: var(--color-accent); background: var(--color-surface); }
 
   .nav-toggle {
-    display: none; align-items: center; justify-content: center;
-    width: 2.25rem; height: 2.25rem; border-radius: var(--radius-sm);
-    background: var(--color-surface-2); border: 1px solid var(--color-border);
-    cursor: pointer; color: var(--color-fg); font-size: 1.25rem;
+    display: none; width: 2.2rem; height: 2.2rem; padding: 0;
+    font-size: 1.1rem;
   }
-
   .mobile-nav {
     display: none; position: fixed; inset: 0; z-index: 99;
     background: color-mix(in srgb, var(--color-void-deep) 96%, transparent);
@@ -587,8 +617,10 @@
   }
 
   @media (max-width: 768px) {
-    .nav-desktop { display: none; }
     .nav-toggle { display: flex; }
+
+    .site-header { padding: 0.6rem 0.75rem; }
+    .nav-glass { display: none; }
 
     .hero { min-height: auto; padding: 5rem 0 3rem; }
     .hero h1 { font-size: clamp(1.5rem, 7vw, 2.2rem); }
@@ -657,25 +689,23 @@
 </div>
 
 <!-- Header -->
-<header class="site-header" role="banner">
-  <div class="container">
-    <a href="#" class="site-logo"><span>✦</span> IlyaBR</a>
+<header class="site-header">
+  <a href="#" class="site-logo glass-pill"><span>✦</span> IlyaBR</a>
 
-    <nav class="nav-desktop" role="navigation" aria-label="Основная навигация">
-      <a href="#community">Сообщество</a>
-      <a href="#tariffs-ege">Курсы</a>
-      <a href="#about">Обо мне</a>
-      <a href="#cta">Начать</a>
-    </nav>
+  <nav class="nav-glass" role="navigation" aria-label="Основная навигация">
+    <a href="#community" class="glass-pill">Чат</a>
+    <a href="#tariffs-ege" class="glass-pill">Курсы</a>
+    <a href="#about" class="glass-pill">Обо мне</a>
+  </nav>
 
-    <div class="header-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-        <span id="themeIcon">🌙</span>
-      </button>
-      <button class="nav-toggle" id="navToggle" aria-label="Открыть меню" aria-expanded="false">
-        <span id="navToggleIcon">☰</span>
-      </button>
-    </div>
+  <div class="header-actions">
+    <a href="#cta" class="glass-pill glass-pill--accent">Начать</a>
+    <button class="theme-toggle glass-pill" id="themeToggle" aria-label="Переключить тему">
+      <span id="themeIcon">🌙</span>
+    </button>
+    <button class="nav-toggle glass-pill" id="navToggle" aria-label="Открыть меню" aria-expanded="false">
+      <span id="navToggleIcon">☰</span>
+    </button>
   </div>
 </header>
 
